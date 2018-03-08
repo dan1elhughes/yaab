@@ -1,5 +1,8 @@
 # Yaab (Yet another auto binder)
 
+[![CircleCI](https://circleci.com/gh/dan1elhughes/yaab/tree/master.svg?style=shield)](https://circleci.com/gh/dan1elhughes/yaab/tree/master)
+[![npm version](https://badge.fury.io/js/yaab.svg)](https://badge.fury.io/js/yaab)
+
 Forces class methods to be bound to instances. There are plenty of libraries to do this already, but this one is my one. Also I wrote tests.
 
 Preconfigured for React, i.e. ignores `render()` and `component...()` methods.
