@@ -1,6 +1,6 @@
 {
   "name": "yaab",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Yet another auto-binder",
   "main": "yaab.js",
   "scripts": {
