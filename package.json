@@ -2,7 +2,7 @@
   "name": "yaab",
   "version": "0.0.1",
   "description": "Yet another auto-binder",
-  "main": "index.js",
+  "main": "yaab.js",
   "scripts": {
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore ."
