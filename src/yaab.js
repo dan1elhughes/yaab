@@ -1,12 +1,10 @@
 /* global module */
 module.exports = (context, _methodsToIgnore = []) => {
-
 	const methodsToIgnore = ['constructor', 'render', ..._methodsToIgnore];
 
 	const methods = Object.getOwnPropertyNames(context.constructor.prototype);
 
 	methods.forEach(name => {
-
 		// Skip anything that's not a function
 		if (typeof context[name] !== 'function') return;
 

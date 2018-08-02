@@ -2,8 +2,12 @@ const bindMethods = require('./yaab');
 
 test('Class methods throw when not bound', () => {
 	const TestClass = class {
-		constructor() { this.property = 'value'; }
-		method() { return this.property; }
+		constructor() {
+			this.property = 'value';
+		}
+		method() {
+			return this.property;
+		}
 	};
 
 	const instance = new TestClass();
@@ -19,7 +23,9 @@ test('Class methods work when bound', () => {
 			bindMethods(this);
 		}
 
-		method() { return this.property; }
+		method() {
+			return this.property;
+		}
 	};
 
 	const instance = new TestClass();
@@ -35,10 +41,16 @@ test('Ignores render and component methods', () => {
 			bindMethods(this);
 		}
 
-		otherMethod() { return this.property; }
+		otherMethod() {
+			return this.property;
+		}
 
-		render() { return this.property; }
-		componentDidMount() { return this.property; }
+		render() {
+			return this.property;
+		}
+		componentDidMount() {
+			return this.property;
+		}
 	};
 
 	const instance = new Reactish();
@@ -56,7 +68,9 @@ test('Doesn\'t bind superclass methods', () => {
 			this.superclassProperty = 'value';
 		}
 
-		superclassMethod() { return this.superclassProperty; }
+		superclassMethod() {
+			return this.superclassProperty;
+		}
 	};
 
 	const Subclass = class extends Superclass {
@@ -66,7 +80,9 @@ test('Doesn\'t bind superclass methods', () => {
 			bindMethods(this);
 		}
 
-		subclassMethod() { return this.subclassProperty; }
+		subclassMethod() {
+			return this.subclassProperty;
+		}
 	};
 
 	const instance = new Subclass();
@@ -84,8 +100,12 @@ test('Ignores passed methods', () => {
 			bindMethods(this, ['ignoredMethod']);
 		}
 
-		method() { return this.property; }
-		ignoredMethod() { return this.property; }
+		method() {
+			return this.property;
+		}
+		ignoredMethod() {
+			return this.property;
+		}
 	};
 
 	const instance = new TestClass();
