@@ -1,33 +1,70 @@
 version: 2
 jobs:
-  build:
+  latest: &template
     docker:
-      - { image: 'circleci/node:7.10' }
+      - image: circleci/node:10
+
     steps:
-      # Checkout the build from Git.
       - checkout
 
       # Restore any cached node_modules from the last
       # build, if package.json has the same checksum.
-      - { restore_cache: { key: 'dependency-cache-{{ checksum "package.json" }}' } }
+      - restore_cache:
+          key: dependencies-{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
 
-      # Install dependencies.
-      - { run: 'npm install --silent' }
-
-      # Save the content of node_modules to cache for
-      # the next build.
-      - { save_cache: { key: 'dependency-cache-{{ checksum "package.json" }}', paths: [node_modules] } }
-
-      # Run the tests configured in package.json.
       - run:
-          command: npm test -- --testResultsProcessor="jest-junit"
+          name: Install dependencies
+          command: npm install --silent
+
+      # Save the content of node_modules to cache for the next build.
+      - save_cache:
+          key: dependencies-{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
+          paths:
+            - node_modules
+
+      - run:
+          name: Test suite
+          command: npm test -- --ci --reporters=jest-junit --runInBand --coverage
           environment:
-            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
+            JEST_JUNIT_OUTPUT: test-results/jest/results.xml
 
-      # Run linting.
       - run:
-          command: npm run lint -- --format junit -o reports/junit/js-lint-results.xml
+          name: Linting
+          command: npm run lint -- --format junit -o test-results/eslint/results.xml
 
-      # Store test and lint results
-      - { store_test_results: { path: reports/junit } }
-      - { store_artifacts: { path: reports/junit } }
+      - run:
+          name: Upload code coverage
+          command: bash <(curl -s https://codecov.io/bash) -f ./coverage/lcov.info
+
+      - store_test_results:
+          path: test-results
+
+  "node:10":
+    <<: *template
+    docker:
+      - image: circleci/node:10
+
+  "node:9":
+    <<: *template
+    docker:
+      - image: circleci/node:9
+
+  "node:8":
+    <<: *template
+    docker:
+      - image: circleci/node:8
+
+  "node:7":
+    <<: *template
+    docker:
+      - image: circleci/node:7
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - "latest"
+      - "node:10"
+      - "node:9"
+      - "node:8"
+      - "node:7"
