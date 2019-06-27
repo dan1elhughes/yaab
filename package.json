@@ -7,8 +7,7 @@
 		"test": "jest",
 		"lint": "eslint --ignore-path .gitignore .",
 		"build": "babel src --out-dir dist",
-		"prepublish": "npm run build",
-		"precommit": "lint-staged"
+		"prepublish": "npm run build"
 	},
 	"repository": {
 		"type": "git",
