@@ -22,8 +22,9 @@
 	},
 	"homepage": "https://github.com/dan1elhughes/yaab#readme",
 	"devDependencies": {
-		"babel-cli": "^6.26.0",
-		"babel-preset-env": "^1.7.0",
+		"@babel/cli": "^7.4.4",
+		"@babel/core": "^7.4.5",
+		"@babel/preset-env": "^7.4.5",
 		"eslint": "^6.0.1",
 		"eslint-config-prettier": "^6.0.0",
 		"eslint-plugin-prettier": "^3.1.0",
