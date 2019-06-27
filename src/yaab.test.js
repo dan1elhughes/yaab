@@ -62,7 +62,7 @@ test('Ignores render and component methods', () => {
 	expect(componentDidMount).toThrow(TypeError);
 });
 
-test('Doesn\'t bind superclass methods', () => {
+test("Doesn't bind superclass methods", () => {
 	const Superclass = class {
 		constructor() {
 			this.superclassProperty = 'value';
